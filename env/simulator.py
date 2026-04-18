@@ -30,15 +30,25 @@ class MovieRecommendEnv:
             & (self.loader.ratings_df["movie_id"].isin(action_movie_id))
         ]
 
-        # reward = sum of (rating - 3)
-        reward = (user_rating["rating"] >= 4).sum()
+        # Calculate individual rewards for the bandit to learn
+        individual_rewards = {
+            row["movie_id"]: 1 if row["rating"] >= 4 else 0
+            for _, row in user_rating.iterrows()
+        }
 
-        liked_movies = user_rating[user_rating["rating"] >= 4]["movie_id"].tolist()
+        reward = sum(individual_rewards.values())
+
+        liked_movies = [mid for mid, r in individual_rewards.items() if r == 1]
         self.user_history = (liked_movies + self.user_history)[:10]
 
         done = False
 
-        return self._get_state(), reward, done, {}
+        return (
+            self._get_state(),
+            reward,
+            done,
+            {"individual_rewards": individual_rewards},
+        )
 
     def _get_state(self):
         return {"user_id": self.current_user, "history": self.user_history}

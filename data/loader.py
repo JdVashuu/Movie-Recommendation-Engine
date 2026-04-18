@@ -13,7 +13,7 @@ class MovieLensLoader:
         self.movies_df = None
 
     def load_data(self):
-        ratings_col = ["user_id", "timestamp", "rating", "movie_id"]
+        ratings_col = ["user_id", "movie_id", "rating", "timestamp"]
         self.ratings_df = pd.read_csv(
             os.path.join(DATA_DIR, "u.data"), sep="\t", names=ratings_col
         )
