@@ -11,4 +11,5 @@ dependencies = [
     "numpy",
     "torch",
     "scikit-learn",
+    "pydantic>=2.13.1",
 ]
