@@ -67,7 +67,7 @@ class MovieLensLoader:
                     genre_vec = genre_vec / norm
 
         
-        user_info = self.user_df[self.user_df["user_id"] == user_id].iloc(0)
+        user_info = self.user_df[self.user_df["user_id"] == user_id].iloc[0]
         demo_vec = user_info.drop(['user_id', 'zip']).values.astype(np.float32)
 
         full_state = np.concatenate([genre_vec, demo_vec]).astype(np.float32)
