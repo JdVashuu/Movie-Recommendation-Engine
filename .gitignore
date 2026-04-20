@@ -3,3 +3,5 @@ PRD.md
 .venv/
 */__pycache__
 data/raw
+documentation.md
+weights/
