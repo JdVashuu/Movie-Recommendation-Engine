@@ -2,9 +2,7 @@ import os
 import urllib.request
 import zipfile
 
-DATA_URL = "https://files.grouplens.org/datasets/movielens/ml-100k.zip"
-DATA_DIR = "data/raw"
-ZIP_PATH = os.path.join(DATA_DIR, "ml-100k.zip")
+from core.config import DATA_DIR, DATA_URL, ML_100K_DIR, ZIP_PATH
 
 
 def download_movielens():
@@ -14,8 +12,7 @@ def download_movielens():
         print("Downloading Movielens dataset...")
         urllib.request.urlretrieve(DATA_URL, ZIP_PATH)
 
-    extracted_dir = os.path.join(DATA_DIR, "ml-100k")
-    if not os.path.exists(extracted_dir):
+    if not os.path.exists(ML_100K_DIR):
         print("Extracting dataset...")
         with zipfile.ZipFile(ZIP_PATH, "r") as zip_ref:
             zip_ref.extractall(DATA_DIR)
